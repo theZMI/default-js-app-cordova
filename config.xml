@@ -1,7 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.super.application" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
-    <name>SuperApplication</name>
-    <description>SuperApplication description</description>
+<!-- Заготовка: замените id (обратное доменное имя, уникально в Google Play/App Store; после
+     выпуска не менять — для Android это будет уже другое приложение), name и description.
+     ios-CFBundleIdentifier можно не указывать — тогда на iOS тоже берётся id. -->
+<widget id="pro.thezmi.defaultjsapp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>Default JS App</name>
+    <description>Заготовка js-приложения (Vue 3 + Cordova)</description>
     <author email="zmigpost@gmail.com">
         The ZMI (Zaytsev Michail Ivanovich)
     </author>
@@ -16,19 +19,98 @@
     <allow-navigation href="*" />
     <platform name="android">
         <preference name="KeepRunning" value="true"/>
+        <!-- Приложение работает с file:// (так проще с относительными путями и ленивыми чанками) -->
         <preference name="AndroidInsecureFileModeEnabled" value="true" />
-        <preference name="AndroidPersistentFileLocation" value="Internal" />
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
         <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,root" />
+        <config-file target="AndroidManifest.xml" parent="/*" xmlns:android="http://schemas.android.com/apk/res/android">
+            <!-- Доступ к медиа (выбор фото, файлы). Не нужен — удалите -->
+            <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+            <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+            <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+            <!-- Без maxSdkVersion: их же объявляют плагины file/camera, и разные атрибуты у одного
+                 разрешения валят манифест-мерджер ("duplicated with element declared at") -->
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+            <!-- Геолокация (cordova-plugin-geolocation добавляет их и сам; здесь — чтобы было видно) -->
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+            <!-- Самообновление: установка скачанного APK (src/native/appUpdates.js) -->
+            <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+            <!-- Вибрация (navigator.vibrate) -->
+            <uses-permission android:name="android.permission.VIBRATE" />
+            <!-- Уведомление foreground-сервиса фонового режима (Android 13+ спрашивает разрешение) -->
+            <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+            <!-- Для cordova-plugin-background-mode: с Android 14 foreground-сервис обязан
+                 объявлять тип и иметь соответствующее разрешение, иначе падает при старте. -->
+            <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+            <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+            <!-- Тип location у того же сервиса: без него Android 10+ перестаёт отдавать
+                 GPS-координаты свёрнутому приложению. Сам тип добавляет хук
+                 fix-background-service-type.js. Не нужен фоновый GPS — удалите вместе с
+                 location в SERVICE_TYPES хука. -->
+            <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+        </config-file>
+        <!-- cordova-plugin-background-mode объявляет свой ForegroundService без foregroundServiceType,
+             что на Android 14+ падает с MissingForegroundServiceTypeException. Cordova не умеет
+             мерджить/заменять <service>, добавленный другим плагином, через config-file/edit-config
+             (оба варианта приводят к дублю узла и падению манифест-мерджера), поэтому чиним
+             готовый AndroidManifest.xml (и ForegroundService.java) хуком после prepare. -->
+        <hook type="after_prepare" src="hooks/fix-background-service-type.js" />
 
+        <!-- Legacy-иконки и сплэш берутся из www/ — их кладёт туда js-приложение
+             (public/img/…, генерирует `make icons` в js-приложении) -->
         <icon density="ldpi" src="www/img/cordova-icon/android/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="www/img/cordova-icon/android/drawable-mdpi-icon.png" />
         <icon density="hdpi" src="www/img/cordova-icon/android/drawable-hdpi-icon.png" />
         <icon density="xhdpi" src="www/img/cordova-icon/android/drawable-xhdpi-icon.png" />
         <icon density="xxhdpi" src="www/img/cordova-icon/android/drawable-xxhdpi-icon.png" />
         <icon density="xxxhdpi" src="www/img/cordova-icon/android/drawable-xxxhdpi-icon.png" />
-
         <preference name="AndroidWindowSplashScreenAnimatedIcon" value="www/img/cordova-screen/android/logo.png"/>
         <preference name="AndroidWindowSplashScreenBackground" value="#000000" />
+        <!-- Адаптивная иконка (Android 8+): фон + передний план, чтобы иконка нормально
+             выглядела в круглой/квадратной/«сквиркл» маске лаунчера. Передний план — тоже
+             из `make icons`. Ресурс ic_launcher_foreground использует и уведомление фонового режима. -->
+        <resource-file src="res/android/adaptive/ic_launcher.xml"
+                       target="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" />
+        <resource-file src="res/android/adaptive/ic_launcher_foreground.png"
+                       target="app/src/main/res/drawable/ic_launcher_foreground.png" />
+        <resource-file src="res/android/adaptive/ic_launcher_background.xml"
+                       target="app/src/main/res/drawable/ic_launcher_background.xml" />
+    </platform>
+    <platform name="ios">
+        <!-- iOS-платформа в package.json не добавлена: `cordova platform add ios` (нужен Xcode) -->
+        <preference name="deployment-target" value="14.0" />
+        <preference name="SwiftVersion" value="5" />
+
+        <!-- app://localhost вместо file://: нормальный origin для IndexedDB, Web Worker и fetch.
+             Выбрать сразу — смена схемы потом = смена origin = пользователи теряют локальные данные. -->
+        <preference name="scheme" value="app" />
+        <preference name="hostname" value="localhost" />
+
+        <!-- Звук из JS без жеста пользователя и видео внутри страницы -->
+        <preference name="AllowInlineMediaPlayback" value="true" />
+        <preference name="MediaTypesRequiringUserActionForPlayback" value="none" />
+
+        <!-- Фоновое воспроизведение звука (аналог фонового режима Android). Не нужно — удалите. -->
+        <config-file target="*-Info.plist" parent="UIBackgroundModes">
+            <array>
+                <string>audio</string>
+            </array>
+        </config-file>
+
+        <!-- Тексты запросов разрешений: без них App Store отклоняет сборку, а приложение
+             падает при обращении к камере/геолокации -->
+        <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
+            <string>Камера нужна, чтобы сделать фото и сканировать коды</string>
+        </edit-config>
+        <edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
+            <string>Доступ к фото нужен, чтобы выбрать изображение</string>
+        </edit-config>
+        <edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
+            <string>Геолокация нужна, чтобы показать ваше местоположение</string>
+        </edit-config>
+
+        <icon src="res/ios/icon-1024.png" width="1024" height="1024" />
     </platform>
 </widget>

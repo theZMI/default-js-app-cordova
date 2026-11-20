@@ -1,0 +1,98 @@
+{
+  "@red-mobile/cordova-plugin-barcodescanner": {
+    "source": {
+      "type": "registry",
+      "id": "@red-mobile/cordova-plugin-barcodescanner@^9.1.0"
+    },
+    "is_top_level": true,
+    "variables": {
+      "ANDROIDX_LEGACY_SUPPORT_V4_VERSION": "1.0.0"
+    }
+  },
+  "cordova-plugin-android-permissions": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-android-permissions@^1.1.5"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-audio-output": {
+    "source": {
+      "type": "registry",
+      "id": "file:../default-js-app/native-plugins/cordova-plugin-audio-output"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-background-mode": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-background-mode@0.7.3"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-device": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-device"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-plugin-camera": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-camera@^8.0.0"
+    },
+    "is_top_level": true,
+    "variables": {
+      "ANDROIDX_CORE_VERSION": "1.6.+"
+    }
+  },
+  "cordova-plugin-file": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-file@^8.1.0"
+    },
+    "is_top_level": true,
+    "variables": {
+      "ANDROIDX_WEBKIT_VERSION": "1.4.0"
+    }
+  },
+  "cordova-plugin-file-opener2": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-file-opener2@^4.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-file-transfer": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-file-transfer@^2.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-geolocation": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-geolocation@^5.0.0"
+    },
+    "is_top_level": true,
+    "variables": {
+      "GPS_REQUIRED": "false"
+    }
+  },
+  "cordova-plugin-inappbrowser": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-inappbrowser@^6.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  }
+}

@@ -1,24 +1,26 @@
 {
-  "name": "com.super.app",
-  "displayName": "Super Application",
+  "name": "default-js-app-cordova",
+  "displayName": "Default JS App",
   "version": "1.0.0",
-  "description": "Super Application description",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "Cordova-оболочка для default-js-app: конфиг, ресурсы, хуки и список плагинов",
+  "private": true,
   "keywords": [
     "ecosystem:cordova"
   ],
-  "author": "Apache Cordova Team",
+  "author": "theZMI <zmigpost@gmail.com>",
   "license": "Apache-2.0",
   "devDependencies": {
     "@red-mobile/cordova-plugin-barcodescanner": "^9.1.0",
     "cordova-android": "^13.0.0",
-    "cordova-plugin-android-permissions": "^0.10.0",
-    "cordova-plugin-camera": "^7.0.0",
+    "cordova-plugin-android-permissions": "^1.1.5",
+    "cordova-plugin-audio-output": "file:../default-js-app/native-plugins/cordova-plugin-audio-output",
+    "cordova-plugin-background-mode": "0.7.3",
+    "cordova-plugin-camera": "^8.0.0",
+    "cordova-plugin-device": "^3.0.0",
     "cordova-plugin-file": "^8.1.0",
-    "cordova-plugin-file-transfer": "github:apache/cordova-plugin-file-transfer",
+    "cordova-plugin-file-opener2": "^4.0.0",
+    "cordova-plugin-file-transfer": "^2.0.0",
+    "cordova-plugin-geolocation": "^5.0.0",
     "cordova-plugin-inappbrowser": "^6.0.0"
   },
   "cordova": {
@@ -29,13 +31,20 @@
       "@red-mobile/cordova-plugin-barcodescanner": {
         "ANDROIDX_LEGACY_SUPPORT_V4_VERSION": "1.0.0"
       },
-      "cordova-plugin-file-transfer": {},
+      "cordova-plugin-android-permissions": {},
+      "cordova-plugin-audio-output": {},
+      "cordova-plugin-background-mode": {},
       "cordova-plugin-camera": {
         "ANDROIDX_CORE_VERSION": "1.6.+"
       },
-      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-device": {},
       "cordova-plugin-file": {},
-      "cordova-plugin-android-permissions": {}
+      "cordova-plugin-file-opener2": {},
+      "cordova-plugin-file-transfer": {},
+      "cordova-plugin-geolocation": {
+        "GPS_REQUIRED": "false"
+      },
+      "cordova-plugin-inappbrowser": {}
     }
   }
 }

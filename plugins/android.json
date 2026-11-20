@@ -1,0 +1,50 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "@red-mobile/cordova-plugin-barcodescanner": {
+      "ANDROIDX_LEGACY_SUPPORT_V4_VERSION": "1.0.0",
+      "PACKAGE_NAME": "pro.thezmi.defaultjsapp"
+    },
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "pro.thezmi.defaultjsapp"
+    },
+    "cordova-plugin-audio-output": {
+      "PACKAGE_NAME": "pro.thezmi.defaultjsapp"
+    },
+    "cordova-plugin-background-mode": {
+      "PACKAGE_NAME": "pro.thezmi.defaultjsapp"
+    },
+    "cordova-plugin-camera": {
+      "ANDROIDX_CORE_VERSION": "1.6.+",
+      "PACKAGE_NAME": "pro.thezmi.defaultjsapp"
+    },
+    "cordova-plugin-file": {
+      "ANDROIDX_WEBKIT_VERSION": "1.4.0",
+      "PACKAGE_NAME": "pro.thezmi.defaultjsapp"
+    },
+    "cordova-plugin-file-opener2": {
+      "PACKAGE_NAME": "pro.thezmi.defaultjsapp"
+    },
+    "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "pro.thezmi.defaultjsapp"
+    },
+    "cordova-plugin-geolocation": {
+      "GPS_REQUIRED": "false",
+      "PACKAGE_NAME": "pro.thezmi.defaultjsapp"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "pro.thezmi.defaultjsapp"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "pro.thezmi.defaultjsapp"
+    }
+  }
+}

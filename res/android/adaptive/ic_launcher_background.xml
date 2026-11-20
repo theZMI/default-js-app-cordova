@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Фон адаптивной иконки; держать в синхроне с BACKGROUND в scripts/generate-icons.py js-приложения -->
+    <solid android:color="#000000"/>
+</shape>
