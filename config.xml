@@ -9,17 +9,28 @@
         The ZMI (Zaytsev Michail Ivanovich)
     </author>
     <content src="index.html" />
+    <!-- Сетевые запросы (API, картинки) — к любым хостам; при желании сузьте до своего API -->
     <access origin="*" />
+    <!-- Какие ссылки можно отдать системе (браузер, звонилка, почта, карты, магазин). Раньше
+         было href="*" — любая схема, включая intent:// с произвольными параметрами -->
+    <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <allow-intent href="*" />
-    <allow-navigation href="*" />
+    <allow-intent href="market:*" />
+    <!-- allow-navigation не задан: WebView остаётся на страницах приложения. Раньше было href="*" —
+         тогда переход (редирект, ссылка, XSS) на любой сайт загружал его ВНУТРИ приложения
+         с доступом к cordova-плагинам (камера, файлы, геолокация). Внешние сайты открываются
+         через src/native/browser.js (системный браузер или InAppBrowser). -->
     <platform name="android">
         <preference name="KeepRunning" value="true"/>
-        <!-- Приложение работает с file:// (так проще с относительными путями и ленивыми чанками) -->
+        <!-- Приложение работает с file:// (так проще с относительными путями и ленивыми чанками).
+             Цена: страница имеет доступ к file:// — поэтому важно, что WebView не уходит на чужие
+             сайты (см. allow-navigation выше), а в CSP нет unsafe-eval. Альтернатива —
+             cordova-android по умолчанию (https://localhost), но тогда меняется origin
+             (теряются данные IndexedDB у уже установленных приложений). -->
         <preference name="AndroidInsecureFileModeEnabled" value="true" />
         <preference name="AndroidPersistentFileLocation" value="Compatibility" />
         <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,root" />
@@ -37,6 +48,10 @@
             <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
             <!-- Самообновление: установка скачанного APK (src/native/appUpdates.js) -->
             <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+            <!-- Микрофон (getUserMedia в WebView, src/native/microphone.js): без RECORD_AUDIO
+                 в манифесте runtime-запрос не покажет диалог, а WebView откажет в доступе -->
+            <uses-permission android:name="android.permission.RECORD_AUDIO" />
+            <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
             <!-- Вибрация (navigator.vibrate) -->
             <uses-permission android:name="android.permission.VIBRATE" />
             <!-- Уведомление foreground-сервиса фонового режима (Android 13+ спрашивает разрешение) -->
@@ -109,6 +124,12 @@
         </edit-config>
         <edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
             <string>Геолокация нужна, чтобы показать ваше местоположение</string>
+        </edit-config>
+        <edit-config target="NSMicrophoneUsageDescription" file="*-Info.plist" mode="merge">
+            <string>Микрофон нужен для записи звука</string>
+        </edit-config>
+        <edit-config target="NSMotionUsageDescription" file="*-Info.plist" mode="merge">
+            <string>Датчики движения нужны для уровня и жестов встряхивания</string>
         </edit-config>
 
         <icon src="res/ios/icon-1024.png" width="1024" height="1024" />
