@@ -17,14 +17,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-audio-output": {
-    "source": {
-      "type": "registry",
-      "id": "file:../default-js-app/native-plugins/cordova-plugin-audio-output"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-background-mode": {
     "source": {
       "type": "registry",
@@ -91,6 +83,70 @@
     "source": {
       "type": "registry",
       "id": "cordova-plugin-inappbrowser@^6.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-local-notification": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-local-notification@1.2.3"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-x-socialsharing": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-x-socialsharing"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "es6-promise-plugin": {
+    "source": {
+      "type": "registry",
+      "id": "es6-promise-plugin@^4.1.0"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-plugin-insomnia": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-insomnia"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-music-controls2": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-music-controls2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-fingerprint-aio": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-fingerprint-aio"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "phonegap-nfc": {
+    "source": {
+      "type": "registry",
+      "id": "phonegap-nfc"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-audio-output": {
+    "source": {
+      "type": "local",
+      "path": "node_modules/cordova-plugin-audio-output"
     },
     "is_top_level": true,
     "variables": {}

@@ -35,3 +35,7 @@
 /www/
 # Настройки IDE
 /.idea/
+
+# Ключ подписи и пароли release-сборки — НИКОГДА не в git (см. README приложения, «Release-сборка»)
+/signing/*
+!/signing/release.example.json

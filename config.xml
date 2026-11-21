@@ -72,6 +72,10 @@
              (оба варианта приводят к дублю узла и падению манифест-мерджера), поэтому чиним
              готовый AndroidManifest.xml (и ForegroundService.java) хуком после prepare. -->
         <hook type="after_prepare" src="hooks/fix-background-service-type.js" />
+        <!-- phonegap-nfc не собирается под SDK 34 (Android Beam) и роняет приложение на телефонах с NFC (PendingIntent) — чиним -->
+        <hook type="after_prepare" src="hooks/fix-phonegap-nfc.js" />
+        <!-- music-controls2 не работает на Android 14 (registerReceiver без флага, неявные Intent) — чиним -->
+        <hook type="after_prepare" src="hooks/fix-music-controls.js" />
 
         <!-- Legacy-иконки и сплэш берутся из www/ — их кладёт туда js-приложение
              (public/img/…, генерирует `make icons` в js-приложении) -->
